@@ -1,17 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using WebAPIDemo.Data;
-using WebAPIDemo.Models.Repositories;
 
 namespace WebAPIDemo.Filters.ActionFilters
 {
     public class Shirt_ValidateShirtIdFilterAttribute : ActionFilterAttribute
     {
-        private readonly ApplicationDbContext db;
+        private readonly ApplicationDbContext _db;
 
         public Shirt_ValidateShirtIdFilterAttribute(ApplicationDbContext db)
         {
-            this.db = db;
+            _db = db;
         }
 
         public override void OnActionExecuting(ActionExecutingContext context)
@@ -32,7 +31,7 @@ namespace WebAPIDemo.Filters.ActionFilters
                 }
                 else 
                 {
-                    var shirt = db.Shirts.Find(shirtId.Value);
+                    var shirt = _db.Shirts.Find(shirtId.Value);
 
                     if (shirt == null)
                     {

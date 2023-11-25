@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
-using WebAPIDemo.Models.Repositories;
-using WebAPIDemo.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using WebAPIDemo.Data;
-using System.Drawing;
-using System.Reflection;
+using WebAPIDemo.Models;
 
 namespace WebAPIDemo.Filters.ActionFilters
 {
