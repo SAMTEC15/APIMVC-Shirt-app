@@ -1,38 +1,33 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebAPIDemo.Attributes;
 using WebAPIDemo.Data;
-using WebAPIDemo.Filters;
 using WebAPIDemo.Filters.ActionFilters;
-using WebAPIDemo.Filters.AuthFilters;
-using WebAPIDemo.Filters.ExceptionFilters;
 using WebAPIDemo.Models;
-using WebAPIDemo.Models.Repositories;
 
 namespace WebAPIDemo.Controllers
 {
-    [ApiVersion("1.0")]
+    //[ApiVersion("1.0")]
     [ApiController]
     [Route("api/[controller]")]
-    [JwtTokenAuthFilter]
+    //[JwtTokenAuthFilter]
     public class ShirtsController: ControllerBase
     {
-        private readonly ApplicationDbContext db;
+        private readonly ApplicationDbContext _db;
 
         public ShirtsController(ApplicationDbContext db)
         {
-            this.db = db;
+           _db = db;
         }
 
         [HttpGet]
-        [RequiredClaim("read", "true")]
+        //[RequiredClaim("read", "true")]
         public IActionResult GetShirts()
         {
-            return Ok(db.Shirts.ToList());
+            return Ok(_db.Shirts.ToList());
         }
 
         [HttpGet("{id}")]
         [TypeFilter(typeof(Shirt_ValidateShirtIdFilterAttribute))]
-        [RequiredClaim("read", "true")]
+        //[RequiredClaim("read", "true")]
         public IActionResult GetShirtById(int id)
         {
             return Ok(HttpContext.Items["shirt"]);
@@ -40,11 +35,11 @@ namespace WebAPIDemo.Controllers
 
         [HttpPost]
         [TypeFilter(typeof(Shirt_ValidateCreateShirtFilterAttribute))]
-        [RequiredClaim("write", "true")]
+        //[RequiredClaim("write", "true")]
         public IActionResult CreateShirt([FromBody]Shirt shirt)
         {
-            this.db.Shirts.Add(shirt);
-            this.db.SaveChanges();
+           _db.Shirts.Add(shirt);
+           _db.SaveChanges();
 
             return CreatedAtAction(nameof(GetShirtById),
                 new { id = shirt.ShirtId },
@@ -54,8 +49,8 @@ namespace WebAPIDemo.Controllers
         [HttpPut("{id}")]
         [TypeFilter(typeof(Shirt_ValidateShirtIdFilterAttribute))]
         [Shirt_ValidateUpdateShirtFilter]
-        [TypeFilter(typeof(Shirt_HandleUpdateExceptionsFilterAttribute))]
-        [RequiredClaim("write", "true")]
+        //[TypeFilter(typeof(Shirt_HandleUpdateExceptionsFilterAttribute))]
+       // [RequiredClaim("write", "true")]
         public IActionResult UpdateShirt(int id, Shirt shirt)
         {
             var shirtToUpdate = HttpContext.Items["shirt"] as Shirt;
@@ -65,20 +60,20 @@ namespace WebAPIDemo.Controllers
             shirtToUpdate.Color = shirt.Color;
             shirtToUpdate.Gender = shirt.Gender;
 
-            db.SaveChanges();
+            _db.SaveChanges();
 
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         [TypeFilter(typeof(Shirt_ValidateShirtIdFilterAttribute))]
-        [RequiredClaim("delete", "true")]
+        //[RequiredClaim("delete", "true")]
         public IActionResult DeleteShirt(int id)
         {
             var shirtToDelete = HttpContext.Items["shirt"] as Shirt;
 
-            db.Shirts.Remove(shirtToDelete);
-            db.SaveChanges();
+            _db.Shirts.Remove(shirtToDelete);
+            _db.SaveChanges();
 
             return Ok(shirtToDelete);
         }
