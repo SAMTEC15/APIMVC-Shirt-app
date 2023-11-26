@@ -23,6 +23,19 @@ namespace WebMVC.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public async Task<IActionResult> CreateShirt(Shirt shirt)
+        {
+            if(ModelState.IsValid)
+            {
+                var response = await _webAPIExecuter.InvokePost("Shirts", shirt);
+                if(response != null)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            return View(shirt);
+        }
 
     }
 }
