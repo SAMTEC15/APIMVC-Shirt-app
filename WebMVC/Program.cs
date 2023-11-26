@@ -1,3 +1,5 @@
+using WebMVC.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpClient("ShirtsAPI", client =>
@@ -7,6 +9,8 @@ builder.Services.AddHttpClient("ShirtsAPI", client =>
 });
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddTransient<IWebAPIExecuter, WebAPIExecuter>();
+
 
 var app = builder.Build();
 

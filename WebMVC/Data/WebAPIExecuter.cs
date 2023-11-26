@@ -2,7 +2,7 @@
 {
     public class WebAPIExecuter : IWebAPIExecuter
     {
-        private const string apiName = "ShirtAPI";
+        private const string apiName = "ShirtsAPI";
         private readonly IHttpClientFactory _httpClientFactory;
 
         public WebAPIExecuter(IHttpClientFactory httpClientFactory)
