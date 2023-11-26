@@ -32,5 +32,12 @@
 
             //return await response.Content.ReadFromJsonAsync<T>();
         }
+
+        public async Task InvokeDelete(string relativeUrl)
+        {
+            var httpClient = _httpClientFactory.CreateClient(apiName);
+            var response = await httpClient.DeleteAsync(relativeUrl);
+            response.EnsureSuccessStatusCode();
+        }
     }
 }

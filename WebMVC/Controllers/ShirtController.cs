@@ -58,7 +58,7 @@ namespace WebMVC.Controllers
             return View(shirt);
         }
 
-        public async Task<IActionResult> DeleteShirt(int shirtId)
+       /* public async Task<IActionResult> DeleteShirt(int shirtId)
         {
             var shirt = await _webAPIExecuter.InvokeGet<Shirt>($"Shirts/{shirtId}");
             if (shirt != null)
@@ -66,6 +66,12 @@ namespace WebMVC.Controllers
                 return View(shirt);
             }
             return NotFound();
+        }*/
+
+        public async Task<IActionResult> DeleteShirt(int shirtId)
+        {
+            await _webAPIExecuter.InvokeDelete($"Shirts/{shirtId}");
+            return RedirectToAction(nameof(Index));
         }
     }
 }
