@@ -26,10 +26,10 @@ namespace WebMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateShirt(Shirt shirt)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var response = await _webAPIExecuter.InvokePost("Shirts", shirt);
-                if(response != null)
+                if (response != null)
                 {
                     return RedirectToAction(nameof(Index));
                 }
@@ -37,5 +37,35 @@ namespace WebMVC.Controllers
             return View(shirt);
         }
 
+        public async Task<IActionResult> UpdateShirt(int shirtId)
+        {
+            var shirt = await _webAPIExecuter.InvokeGet<Shirt>($"Shirts/{shirtId}");
+            if (shirt != null)
+            {
+                return View(shirt);
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateShirt(Shirt shirt)
+        {
+            if (ModelState.IsValid)
+            {
+                await _webAPIExecuter.InvokePut($"Shirts/{shirt.ShirtId}", shirt);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(shirt);
+        }
+
+        public async Task<IActionResult> DeleteShirt(int shirtId)
+        {
+            var shirt = await _webAPIExecuter.InvokeGet<Shirt>($"Shirts/{shirtId}");
+            if (shirt != null)
+            {
+                return View(shirt);
+            }
+            return NotFound();
+        }
     }
 }
