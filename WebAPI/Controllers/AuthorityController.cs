@@ -19,12 +19,12 @@ namespace WebAPI.Controllers
         [HttpPost("auth")]
         public IActionResult Authenticate([FromBody] AppCredential credential)
         {
-            if(AppRespository.Authenticate(credential.ClientId, credential.Secret))
+            if(Authenticator.Authenticate(credential.ClientId, credential.Secret))
             {
                 var expiresAt = DateTime.UtcNow.AddMinutes(10);
                 return Ok(new
                 {
-                    access_token = CreateToken(credential.ClientId, expiresAt),
+                    access_token = Authenticator.CreateToken(credential.ClientId, expiresAt, _configuration.GetValue<string>("Key")),
                     expires_at = expiresAt
                 });
             }
@@ -37,28 +37,37 @@ namespace WebAPI.Controllers
            return new UnauthorizedObjectResult(problemDetails);
         }
 
-        private string CreateToken(string clientId, DateTime expiresAt)
+        public static bool VerifyToken(string token, string strKey)
         {
-            //Algo, Payload, Siging Key
-            var app = AppRespository.GetApplicationByClientId(clientId);
-            var claims = new List<Claim>
+            if(string.IsNullOrEmpty(token))
             {
-                new Claim("AppName", app?.ApplicationName??string.Empty),
-                new Claim("Read", (app?.Scopes??string.Empty).Contains("read")?"true":"false"),
-                new Claim("Write", (app?.Scopes??string.Empty).Contains("write")?"true":"false")
-            };
-
-            var secretKey = Encoding.ASCII.GetBytes(_configuration.GetValue<string>("Key"));
-
-            var jwt = new JwtSecurityToken(
-                signingCredentials: new SigningCredentials(
-                   new SymmetricSecurityKey(secretKey),
-                SecurityAlgorithms.HmacSha256Signature),
-                claims: claims,
-                expires: expiresAt,
-                notBefore: DateTime.UtcNow
-                );
-            return new JwtSecurityTokenHandler().WriteToken(jwt);
+                return false;
+            }
+            var secrectKey = Encoding.ASCII.GetBytes(strKey);
+            SecurityToken securityToken;
+            try
+            {
+                var tokenHandler = new JwtSecurityTokenHandler();
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(secrectKey),
+                    ValidateLifetime = true,
+                    ValidateAudience = false,
+                    ValidateIssuer = false,
+                    ClockSkew = TimeSpan.Zero
+                }, out securityToken);
+            }
+            catch (SecurityTokenException)
+            {
+                return false;
+            }
+            catch
+            {
+                throw;
+            }
+            return securityToken != null;
         }
+        
     }
 }
