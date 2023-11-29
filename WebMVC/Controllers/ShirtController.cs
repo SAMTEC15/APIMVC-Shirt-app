@@ -34,6 +34,7 @@ namespace WebMVC.Controllers
                     var response = await _webAPIExecuter.InvokePost("Shirts", shirt);
                     if (response != null)
                     {
+                        TempData["message"] = "Shirt Created successfully";
                         return RedirectToAction(nameof(Index));
                     }
                 }
@@ -117,6 +118,11 @@ namespace WebMVC.Controllers
                     ModelState.AddModelError(error.Key, string.Join(";", error.Value));
                 }
             }
+            else if(ex.ErrorResponse != null)
+            {
+                ModelState.AddModelError("Error", ex.ErrorResponse.Title);
+            }
+            ModelState.AddModelError("Error", ex.Message);
         }
     }
 }

@@ -6,6 +6,7 @@ C:\Users\user1\source\Personal\Project2\WebAPIDemo\WebMVC\bin\Debug\net7.0\WebMV
 C:\Users\user1\source\Personal\Project2\WebAPIDemo\WebMVC\bin\Debug\net7.0\WebMVC.runtimeconfig.json
 C:\Users\user1\source\Personal\Project2\WebAPIDemo\WebMVC\bin\Debug\net7.0\WebMVC.dll
 C:\Users\user1\source\Personal\Project2\WebAPIDemo\WebMVC\bin\Debug\net7.0\WebMVC.pdb
+C:\Users\user1\source\Personal\Project2\WebAPIDemo\WebMVC\bin\Debug\net7.0\Newtonsoft.Json.dll
 C:\Users\user1\source\Personal\Project2\WebAPIDemo\WebMVC\obj\Debug\net7.0\WebMVC.csproj.AssemblyReference.cache
 C:\Users\user1\source\Personal\Project2\WebAPIDemo\WebMVC\obj\Debug\net7.0\WebMVC.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\user1\source\Personal\Project2\WebAPIDemo\WebMVC\obj\Debug\net7.0\WebMVC.AssemblyInfoInputs.cache
@@ -24,6 +25,7 @@ C:\Users\user1\source\Personal\Project2\WebAPIDemo\WebMVC\obj\Debug\net7.0\stati
 C:\Users\user1\source\Personal\Project2\WebAPIDemo\WebMVC\obj\Debug\net7.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\user1\source\Personal\Project2\WebAPIDemo\WebMVC\obj\Debug\net7.0\scopedcss\bundle\WebMVC.styles.css
 C:\Users\user1\source\Personal\Project2\WebAPIDemo\WebMVC\obj\Debug\net7.0\scopedcss\projectbundle\WebMVC.bundle.scp.css
+C:\Users\user1\source\Personal\Project2\WebAPIDemo\WebMVC\obj\Debug\net7.0\WebMVC.csproj.CopyComplete
 C:\Users\user1\source\Personal\Project2\WebAPIDemo\WebMVC\obj\Debug\net7.0\WebMVC.dll
 C:\Users\user1\source\Personal\Project2\WebAPIDemo\WebMVC\obj\Debug\net7.0\refint\WebMVC.dll
 C:\Users\user1\source\Personal\Project2\WebAPIDemo\WebMVC\obj\Debug\net7.0\WebMVC.pdb

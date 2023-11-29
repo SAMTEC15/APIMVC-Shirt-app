@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using WebAPI.Attributes;
 using WebAPI.Authority;
 using WebAPI.Controllers;
 
@@ -17,11 +18,8 @@ namespace WebAPI.Filters.Filters
             }
             
             var configuration = context.HttpContext.RequestServices.GetService<IConfiguration>();
-            if(!AuthorityController.VerifyToken(token, configuration.GetValue<string>("SecretKey")))
-            {
-                context.Result = new UnauthorizedResult();
-            }
-            /*var claims = Authenticator.VerifyToken(token, configuration.GetValue<string>("SecretKey"));
+           
+            var claims = Authenticator.VerifyToken(token, configuration.GetValue<string>("SecretKey"));
 
             if (claims == null)
             {
@@ -30,8 +28,7 @@ namespace WebAPI.Filters.Filters
             else
             {
                 var requiredClaims = context.ActionDescriptor.EndpointMetadata
-                        .OfType<RequiredClaimAttribute>()
-                        .ToList();
+                        .OfType<RequiredClaimAttribute>().ToList();
 
                 // 403
                 if (requiredClaims != null && !requiredClaims.All(rc => claims.Any(c => c.Type.ToLower() == rc.ClaimType.ToLower() &&
@@ -39,7 +36,7 @@ namespace WebAPI.Filters.Filters
                 {
                     context.Result = new StatusCodeResult(403);
                 }
-            }*/
+            }
 
         }
     }
