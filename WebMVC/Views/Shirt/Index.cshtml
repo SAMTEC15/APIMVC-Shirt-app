@@ -36,8 +36,8 @@
                     <td>@shirt.Color</td>
                     <td>@shirt.Size</td>
                     <td>@(shirt.Price.HasValue ? shirt.Price.Value.ToString("c") : "")</td>
-                    <td><a class="btn btn-link" asp-controller="shirt" asp-action="UpdateShirt" asp-route-shirtId="@shirt.ShirtId">Edit</a> </td>
-                    <td><a class="btn btn-link" asp-controller="shirt" asp-action="DeleteShirt" asp-route-shirtId="@shirt.ShirtId">Delete</a> </td>
+                    <td><a class="btn btn-primary" asp-controller="shirt" asp-action="UpdateShirt" asp-route-shirtId="@shirt.ShirtId">Edit</a> </td>
+                    <td><a class="btn btn-danger" asp-controller="shirt" asp-action="DeleteShirt" asp-route-shirtId="@shirt.ShirtId">Delete</a> </td>
                 </tr>
             }
         </tbody>
